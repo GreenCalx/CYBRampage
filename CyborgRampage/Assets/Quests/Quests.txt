@@ -1,0 +1,29 @@
+#1 : Devoir civique
+
+QuestText:
+Hé mon p'tit gars! Viens voir par là deux s'condes!
+Faut qu'tu m'aides! J'suis à bout !!
+Il fait froid et j'ai plus rien à m'boire pour m'réchauffer ni à m'mettre sous la dent.
+L'hiver arrive et j'vais crever si personne m'aide !
+J't'en supplie j'ai besoin qu'tu m'aides.
+
+Choice:
+[ J'ai pas qu'ça à foutre. ]
+[ J'vais voir ce que je peux faire ]
+
+QuestTip:
+> Aider le clochard à améliorer ses conditions de vie.
+
+Objectifs(cachés?):
+o Donner une couverture
+o Donner une bouteille d'alcool fort
+o Donner une ration de nourriture
+
+Réussite de tout les objectifs:
+Ouah ! Cette couverture est si soyeuse !! Je vais m'enrouler dedans comme un maki.
+Tiens, prends mes affaires je n'en aurais plus besoin maintenant que je possède cette beauté.
+ <Skin change>
+
+Récompense :
+200xp
+Tenue de clochard
