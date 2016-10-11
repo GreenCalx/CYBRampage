@@ -8,11 +8,18 @@ public class BasicGun : MonoBehaviour {
 
     public float fireRate = 0.25f;
     private float fireCooldown;    // internal cd
+    private Vector3 _shootingDirection;
 
 	// Use this for initialization
 	void Start () {
+        _shootingDirection = new Vector2(-1, 0);
         fireCooldown = 0f;
 	}
+
+    public Vector2 GetShootingDirection()
+    {
+        return _shootingDirection;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,9 +52,17 @@ public class BasicGun : MonoBehaviour {
 
             Vector3 sp = Camera.main.WorldToScreenPoint(bulletTransform.position);
             Vector3 dir = (Input.mousePosition - sp).normalized;
-            move.direction = transform.forward;
             move.direction = dir;
+            _shootingDirection = dir;
         }
 
+    }
+
+    public Vector3 FindPointingDirection()
+    {
+        //Transform bulletTransform = Instantiate(bulletTransformRef) as Transform;
+        //Vector3 sp = Camera.main.WorldToScreenPoint(bulletTransform.position);
+        //Vector3 dir = (Input.mousePosition - sp).normalized;
+        return _shootingDirection;
     }
 }

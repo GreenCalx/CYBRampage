@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     private bool        _fFlip = false;
     private Rigidbody2D _rb2d;
     private Animator    _animator;
+    private PlayerArmController _arm;
 
     // -- MISSILE -- 
     public KeyCode FIRE;
@@ -50,12 +51,14 @@ public class PlayerController : MonoBehaviour {
 
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _arm = GetComponentInChildren<PlayerArmController>();
         fireRate = 0f;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
+       
         if (Input.GetKey(FIRE) && Time.time > fireRate)
         {
             fireRate = Time.time + fireSpeed;
@@ -111,7 +114,18 @@ public class PlayerController : MonoBehaviour {
             SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
             sr.color = Color.white;
         }
-            
+
+        //Update arm rotation
+        if (_arm != null)
+        {
+            //BasicGun gun = GetComponent<BasicGun>();
+            Transform armTransform = _arm.transform;
+            Vector3 sp = Camera.main.WorldToScreenPoint(armTransform.position);
+            Vector3 dir = (Input.mousePosition - sp).normalized;
+            _arm.UpdateShootingDirection(dir);
+
+        }
+
 
     }
 
