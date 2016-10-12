@@ -72,10 +72,6 @@ public class PlayerArmController : MonoBehaviour {
 
         transform.rotation = Quaternion.Euler(new Vector3(_xAngle, _yAngle, _zAngle));
 
-
-
-
-
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
