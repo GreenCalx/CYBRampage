@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour {
     // -- MISSILE -- 
     public KeyCode FIRE;
     public float fireStrength;
-    public float fireSpeed;
     public GameObject missile;
     private float fireRate;
 
@@ -52,27 +51,18 @@ public class PlayerController : MonoBehaviour {
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _arm = GetComponentInChildren<PlayerArmController>();
-        fireRate = 0f;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-       
-        if (Input.GetKey(FIRE) && Time.time > fireRate)
+        if (Input.GetKey(FIRE))
         {
-            fireRate = Time.time + fireSpeed;
-            //BasicGun gun = GetComponent<BasicGun>();
-            //if (gun!=null)
-            //{
-            //    gun.Fire(false);
-            //}
             BasicGun[] guns = GetComponentsInChildren<BasicGun>();
             if (guns[0] != null)
                 guns[0].Fire(false);
             if (guns[1] != null)
                 guns[1].Fire(false);
-
         }
 
         // Conditions upon eventual transformations

@@ -34,15 +34,17 @@ public class BasicGun : MonoBehaviour {
         {
             fireCooldown = fireRate;
         }
+        else
+            return;
 
         Transform bulletTransform = Instantiate(bulletTransformRef) as Transform;
 
         // Set the bullet at gunpoint (only +width currently)
-        bulletTransform.position = transform.position;
-        PlayerArmController currentArm = GetComponentInParent<PlayerArmController>();
         Transform gunpoint = transform.Find("GunPoint");
         if (gunpoint != null)
             bulletTransform.position = gunpoint.position;
+        else
+            bulletTransform.position = transform.position;
 
         // rotate the projectile to match arms's rotation
         bulletTransform.rotation = transform.rotation;
