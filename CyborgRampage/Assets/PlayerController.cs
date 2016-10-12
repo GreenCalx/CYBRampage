@@ -62,14 +62,16 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKey(FIRE) && Time.time > fireRate)
         {
             fireRate = Time.time + fireSpeed;
-
-
-           // bulletInstance.AddForce(dir * fireStrength);
-             BasicGun gun = GetComponent<BasicGun>();
-             if (gun!=null)
-             {
-                 gun.Fire(false);
-             }
+            //BasicGun gun = GetComponent<BasicGun>();
+            //if (gun!=null)
+            //{
+            //    gun.Fire(false);
+            //}
+            BasicGun[] guns = GetComponentsInChildren<BasicGun>();
+            if (guns[0] != null)
+                guns[0].Fire(false);
+            if (guns[1] != null)
+                guns[1].Fire(false);
 
         }
 

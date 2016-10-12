@@ -5,8 +5,8 @@ public class BasicGun : MonoBehaviour {
 
 
     public Transform bulletTransformRef;
+    public float fireRate ;
 
-    public float fireRate = 0.25f;
     private float fireCooldown;    // internal cd
     private Vector3 _shootingDirection;
 
@@ -38,6 +38,7 @@ public class BasicGun : MonoBehaviour {
         Transform bulletTransform = Instantiate(bulletTransformRef) as Transform;
 
         bulletTransform.position = transform.position;
+        bulletTransform.rotation = transform.rotation;
 
         MissileController bullet = bulletTransform.gameObject.GetComponent<MissileController>();
         if (bullet != null)
