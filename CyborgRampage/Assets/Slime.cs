@@ -13,7 +13,7 @@ public class Slime : MonoBehaviour
 
     public float damageAnimationLength = 0.25f;
     private float backToRegularColor;
-
+    public float repulsionFactor = 200f;
 
 
     public DamageText damageTextRef;
@@ -82,13 +82,12 @@ public class Slime : MonoBehaviour
             {
                 Vector2 playerPos = player.transform.position;
                 Vector2 thisPos = transform.position;
-                Vector2 repulseVector = thisPos - playerPos;
-                repulseVector *= 100;
+                Vector2 repulseVector = playerPos - thisPos ;
+                repulseVector *= repulsionFactor;
 
                 if (damageOnTouch)
                     player.damage(ATK, repulseVector);
             }
-
         }
     }
 
@@ -98,6 +97,7 @@ public class Slime : MonoBehaviour
         backToRegularColor = 0f;
         _damageTexts = new List<DamageText>();
         _sr = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame

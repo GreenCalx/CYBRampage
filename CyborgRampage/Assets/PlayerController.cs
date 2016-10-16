@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
     // 0 : no knockback |  1 : full knockback
-    public const float REPULSION_ATTENUATION = 0.25f;
+    public const float REPULSION_ATTENUATION = 1.0f;
 
     public float maxSpeed = 10f;
 
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour {
 
         // Apply repulsion
         // _rb2d.velocity = new Vector2(repulseVector.x * maxSpeed, repulseVector.y * maxSpeed);
-        _rb2d.velocity = -repulseVector * REPULSION_ATTENUATION;
+        _rb2d.velocity = repulseVector * REPULSION_ATTENUATION;
         _isRepulsed = true;
 
 

@@ -61,17 +61,10 @@ public class BasicGun : MonoBehaviour {
         MoveScript move = bulletTransform.gameObject.GetComponent<MoveScript>();
         if ( move!=null )
         {
-
-            //// MOUSE POINTER
-
-
             // Set bullet's direction to the gunpoint forward vector
             Vector3 dir = gunpoint.forward;
             if (bulletRB2D)
             {
-                //bulletRB2D.AddForce(dir * fireStrength);
-                //Vector3 sp = Camera.main.WorldToScreenPoint(bulletTransform.position);
-                //dir = (Input.mousePosition - sp).normalized;
                 move.direction = dir;
                 _shootingDirection = dir; // ?
             }
@@ -81,8 +74,6 @@ public class BasicGun : MonoBehaviour {
                 move.direction = dir * fireStrength;
                 _shootingDirection = dir; // ?
             }
-
-            
 
         }
 
