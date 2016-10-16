@@ -64,8 +64,8 @@ public class AIDetectAndChase : MonoBehaviour {
 
         _moveScript.direction = parentTransform.forward;
 
-        if (parentTransform.forward.x < 0) // NOT WORKING
-            parentTransform.Rotate(new Vector3(0, 0, 1), 180f);
+        //if (parentTransform.forward.x < 0) // NOT WORKING
+        //    parentTransform.Rotate(new Vector3(0, 0, 1), 180f);
     }
 
     // Update is called once per frame
