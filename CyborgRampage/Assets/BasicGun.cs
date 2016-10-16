@@ -6,6 +6,7 @@ public class BasicGun : MonoBehaviour {
 
     public Transform bulletTransformRef;
     public float fireRate ;
+    public float fireStrength;
 
     private float fireCooldown;    // internal cd
     private Vector3 _shootingDirection;
@@ -50,9 +51,10 @@ public class BasicGun : MonoBehaviour {
         bulletTransform.rotation = transform.rotation;
 
         MissileController bullet = bulletTransform.gameObject.GetComponent<MissileController>();
+        Rigidbody2D bulletRB2D = bulletTransform.gameObject.GetComponent<Rigidbody2D>();
         if (bullet != null)
         {
-            bullet.IsEnemyProjectile = isEnemy; 
+            bullet.IsEnemyProjectile = isEnemy;
         }
 
         //define direction
@@ -60,10 +62,28 @@ public class BasicGun : MonoBehaviour {
         if ( move!=null )
         {
 
-            Vector3 sp = Camera.main.WorldToScreenPoint(bulletTransform.position);
-            Vector3 dir = (Input.mousePosition - sp).normalized;
-            move.direction = dir;
-            _shootingDirection = dir;
+            //// MOUSE POINTER
+
+
+            // Set bullet's direction to the gunpoint forward vector
+            Vector3 dir = gunpoint.forward;
+            if (bulletRB2D)
+            {
+                //bulletRB2D.AddForce(dir * fireStrength);
+                //Vector3 sp = Camera.main.WorldToScreenPoint(bulletTransform.position);
+                //dir = (Input.mousePosition - sp).normalized;
+                move.direction = dir;
+                _shootingDirection = dir; // ?
+            }
+            else
+            {
+
+                move.direction = dir * fireStrength;
+                _shootingDirection = dir; // ?
+            }
+
+            
+
         }
 
     }

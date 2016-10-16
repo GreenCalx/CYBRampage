@@ -72,6 +72,15 @@ public class PlayerArmController : MonoBehaviour {
 
         transform.rotation = Quaternion.Euler(new Vector3(_xAngle, _yAngle, _zAngle));
 
+        // update gunpoint's forwrd vector
+        Transform gunpoint = transform.Find("GunPoint");
+        if (gunpoint!=null)
+        {
+            Vector2 gunpointPosition = gunpoint.position;
+            Vector2 armPosition = transform.position;
+            gunpoint.forward = gunpointPosition - armPosition ;
+        }
+
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)

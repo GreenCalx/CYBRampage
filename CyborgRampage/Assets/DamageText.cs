@@ -22,10 +22,17 @@ public class DamageText : MonoBehaviour {
     private int i_scroll = 0;
     private float _opacity             = 250f;
     public float opacityDegressionRate = 2.5f;
+    private float spriteHeight;
+    private Vector2 lastSeenPosition;
 
     void Start()
     {
 
+    }
+
+    public bool Finished()
+    {
+        return !showText;
     }
 
     public void Display(  Vector2 rectPosition, int damageCount )
@@ -40,23 +47,35 @@ public class DamageText : MonoBehaviour {
             _RectSize = new Vector2(60, 40);
         }
         _text = damageCount.ToString();
-        showText = true;
-        executedTime = Time.time;
-    }
 
-    public void UpdatePosition( Vector2 rectPosition )
-    {
-        // Center it on the sprite
-        _RectPosition.x = rectPosition.x;
-        _RectPosition.y = Screen.height - rectPosition.y;
-
-        // Offset it the top of the sprite
+        // get sprite's height
         SpriteRenderer sr = GetComponentInParent<SpriteRenderer>();
         if (sr != null)
-            _RectPosition.y -= sr.sprite.textureRect.height * 1.5f;
+            spriteHeight = sr.sprite.textureRect.height ;
+
+        showText = true;
+        executedTime = Time.time;
+        DestroyObject(gameObject, persistenceTime);
+
+    }
+
+    public void LastSeenPosition( Vector2 rectPosition)
+    {
+        lastSeenPosition = rectPosition;
+    }
+
+    private void UpdatePosition()
+    {
+        // Center it on the sprite
+        _RectPosition.x = lastSeenPosition.x;
+        _RectPosition.y = Screen.height - lastSeenPosition.y;
+
+        // Offset it the top of the sprite
+
+        _RectPosition.y -= spriteHeight * 1.5f;
 
         _RectPosition.y -= (scrollingVector.y * scrollingStep) * i_scroll++ ;
-        _RectPosition.x += (scrollingVector.x * scrollingStep) * i_scroll++;
+        _RectPosition.x += (scrollingVector.x * scrollingStep) * i_scroll++ ;
 
         if (_opacity >= opacityDegressionRate)
             _opacity -= opacityDegressionRate;
@@ -66,6 +85,8 @@ public class DamageText : MonoBehaviour {
 
     void Update()
     {
+        UpdatePosition();
+
         currentTime = Time.time;
 
         if (executedTime != 0.0f)
@@ -74,7 +95,6 @@ public class DamageText : MonoBehaviour {
             {
                 executedTime = 0.0f;
                 showText = false;
-                
             }
         }
     }
@@ -92,13 +112,13 @@ public class DamageText : MonoBehaviour {
 
             GUI.Label(new Rect(_RectPosition, _RectSize), _text);
 
-            //DamageTextBehaviour dtb = GetComponentInChildren<DamageTextBehaviour>(true);
-            //if (dtb != null)
-            //{
-            //    dtb.WorldOffset = _RectPosition;
-            //    dtb.LateUpdate();
-            //}
         }
             
+    }
+
+
+    public void Kill()
+    {
+        Destroy(gameObject);
     }
 }

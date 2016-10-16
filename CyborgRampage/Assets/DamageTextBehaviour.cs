@@ -8,6 +8,7 @@ public class DamageTextBehaviour : MonoBehaviour {
     new private Transform transform;
     new private Camera camera;
     private Transform target;
+    private Vector3 lastSeenTargetPosition;
 
     public void Awake()
     {
@@ -18,6 +19,15 @@ public class DamageTextBehaviour : MonoBehaviour {
 
     public void LateUpdate()
     {
-        transform.position = camera.WorldToViewportPoint(target.position + WorldOffset) + ScreenOffset;
+        target = transform.parent;
+        if (target != null)
+        {
+            transform.position = camera.WorldToViewportPoint(target.position + WorldOffset) + ScreenOffset;
+            lastSeenTargetPosition = target.position;
+        }
+        else
+        {
+            transform.position = camera.WorldToViewportPoint(lastSeenTargetPosition + WorldOffset) + ScreenOffset;
+        }
     }
 }

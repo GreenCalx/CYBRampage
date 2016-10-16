@@ -27,10 +27,11 @@ public class MissileController : MonoBehaviour {
     // Colliding with an other object
     void OnCollisionEnter2D(Collision2D c)
     {
-        Destroy(gameObject);
+        Destroy(gameObject); // shouldn't be called
     }
     void OnTriggerEnter2D(Collider2D c)
     {
-        //Destroy(gameObject);
+        if (c.name == this.name) return; // ignore collision with self
+        //else Destroy(gameObject);
     }
 }

@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class HUDHPBar : MonoBehaviour {
+public class HUDHPBar : MonoBehaviour
+{
 
     private float _currentHP;
     private float _maxHP;
@@ -12,10 +13,17 @@ public class HUDHPBar : MonoBehaviour {
     private PlayerController _pc;
     private RectTransform _barTransform;
 
-    // Use this for initialization
-    void Start () {
+    public Sprite hpOk;
+    public Sprite hpCare;
+    public Sprite hpDanger;
 
-        _pc = GetComponentInParent<PlayerController>();
+    // Use this for initialization
+    void Start()
+    {
+
+        GameObject player = GameObject.Find("PLAYER");
+        if (player == null) return;
+        _pc = player.GetComponent<PlayerController>();
         _bar = GetComponent<Image>();
         _barTransform = GameObject.Find("HUD/HP_Bar").transform as RectTransform;
 
@@ -24,7 +32,7 @@ public class HUDHPBar : MonoBehaviour {
             _maxWidth = _barTransform.sizeDelta.x;
             _currentWidth = _maxWidth;
         }
-        
+
         if (_pc)
         {
             _maxHP = _pc.maxHealth;
@@ -33,26 +41,28 @@ public class HUDHPBar : MonoBehaviour {
 
 
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        _pc = GetComponentInParent<PlayerController>();
-        _barTransform = GameObject.Find("HUD/HP_Bar").transform as RectTransform;
-        if (_pc)
-        {
-            if (_maxHP < 0)
-                return; // ERROR
+    // Update is called once per frame
+    void Update()
+    {
+        //_barTransform = GameObject.Find("HUD/HP_Bar").transform as RectTransform;
+        //Image barMat = GetComponent<Image>();
+        if (_maxHP < 0)
+            return; // ERROR
 
-            _currentHP = _pc.health;
-            float hp_ratio = _currentHP / _maxHP;
+        _currentHP = _pc.health;
+        float hp_ratio = _currentHP / _maxHP;
 
-            if (hp_ratio < 0 || hp_ratio > 1)
-                return; // ERROR
+        if (hp_ratio < 0 || hp_ratio > 1)
+            return; // ERROR
 
-            _barTransform.sizeDelta = new Vector2(_maxWidth * hp_ratio, _barTransform.sizeDelta.y);
-        }
-        
+        if ( hp_ratio <= 0.3 )
+            _bar.sprite = hpDanger;
+        else if ( hp_ratio <= 0.5 )
+            _bar.sprite = hpCare;
+        else if ( _bar.sprite != hpOk )
+            _bar.sprite = hpOk;
 
-    }
+        _barTransform.sizeDelta = new Vector2(_maxWidth * hp_ratio, _barTransform.sizeDelta.y);
+    } 
 }

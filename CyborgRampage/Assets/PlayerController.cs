@@ -15,9 +15,7 @@ public class PlayerController : MonoBehaviour {
 
     // -- MISSILE -- 
     public KeyCode FIRE;
-    public float fireStrength;
     public GameObject missile;
-    private float fireRate;
 
     // -- Various datas --
     private bool playerFacingRight = true;
