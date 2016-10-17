@@ -16,12 +16,13 @@ public class MissileController : MonoBehaviour {
     {
         _rb2d = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifeTime);
+        damage = (int)Random.Range(damage_range_low, damage_range_max);
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        damage = (int)Random.Range(damage_range_low, damage_range_max);
+        
     }
 
     // Colliding with an other object
