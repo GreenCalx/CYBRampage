@@ -1,27 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BasicEyeController : MonoBehaviour {
+public class BasicEyeController : Monster {
 
     private float _randValue;
     private Animator _animator;
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
+        base.Start();
         _animator = GetComponent<Animator>();
         _animator.SetBool("Blink", false);
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        _transformPosition = gameObject.transform.position;
 
+
+        // - Update animation vars -
         _randValue = Random.Range(0f, 1f);
 
-        if (_randValue > 0.95f)
+        if (_randValue > 0.99f)
             _animator.SetBool("Blink", true);
         else
             _animator.SetBool("Blink", false);
+        // ------------------
+
+
+        base.Update();
     }
 }
