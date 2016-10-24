@@ -157,5 +157,19 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        MissileController bullet = c.gameObject.GetComponent<MissileController>();
+        if (bullet != null)
+        {
+            if (bullet.IsEnemyProjectile) // FriendlyFire OFF
+            {
+                Vector2 repulsionVector = new Vector2(0f, 0f);
+                damage(bullet.damage, repulsionVector);
+                Destroy(bullet.gameObject);
+            }
+        }
+    }
+
 
 }

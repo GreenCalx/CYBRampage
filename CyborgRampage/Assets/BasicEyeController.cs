@@ -22,9 +22,9 @@ public class BasicEyeController : Monster {
 
 
         // - Update animation vars -
-        _randValue = Random.Range(0f, 1f);
+        _randValue = Random.Range(0f, 100f);
 
-        if (_randValue > 0.99f)
+        if (_randValue > 99f)
             _animator.SetBool("Blink", true);
         else
             _animator.SetBool("Blink", false);

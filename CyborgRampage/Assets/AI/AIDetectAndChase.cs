@@ -32,14 +32,14 @@ public class AIDetectAndChase : MonoBehaviour {
         detectionStyle = DETECTION_STYLE.RADIAL;
     }
 
-    void OnTriggerEnter2D(Collider2D c)
-    {
-        if (c.name == "PLAYER")
-            _aggro = true;
-        else
-            return;
+    //void OnTriggerEnter2D(Collider2D c)
+    //{
+    //    if (c.name == "PLAYER")
+    //        _aggro = true;
+    //    else
+    //        return;
 
-    }
+    //}
 
     void Detect()
     {
