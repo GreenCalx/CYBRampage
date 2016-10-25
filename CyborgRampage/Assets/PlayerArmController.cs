@@ -68,9 +68,15 @@ public class PlayerArmController : MonoBehaviour {
         if (_invert) _zAngle -= 180;
 
         // Rotate 180 around x-axis if the _angle is above or below 90
-      //  _yAngle = ((_zAngle > 90) || (_zAngle < -90)) ? 180f : 0f;
+        //  _yAngle = ((_zAngle > 90) || (_zAngle < -90)) ? 180f : 0f;
 
-        transform.rotation = Quaternion.Euler(new Vector3(_xAngle, _yAngle, _zAngle));
+
+        // Sync the rotation
+        _zAngle *= Time.timeScale;
+
+        transform.rotation = Quaternion.Euler(new Vector3(_xAngle, _yAngle, _zAngle)) ;
+        
+        
 
         // update gunpoint's forwrd vector
         Transform gunpoint = transform.Find("GunPoint");
