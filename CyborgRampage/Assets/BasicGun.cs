@@ -7,6 +7,7 @@ public class BasicGun : MonoBehaviour {
     public Transform bulletTransformRef;
     public float fireRate ;
     public float fireStrength;
+    public string name = "";
 
     private float fireCooldown;    // internal cd
     private Vector3 _shootingDirection;

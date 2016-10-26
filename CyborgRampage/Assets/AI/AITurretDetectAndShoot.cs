@@ -15,18 +15,25 @@ public class AITurretDetectAndShoot : MonoBehaviour {
     private bool _aggro;
 
     private BasicGun _weapon;
-    
+
 
 
     // Use this for initialization
-    void Start () {
+    public virtual void Start () {
         _aggro = false;
         detectionStyle = DETECTION_STYLE.RADIAL;
-        _weapon = GetComponent<BasicGun>();
+        BasicGun[] weapons = GetComponents<BasicGun>();
+        for (int i=0; i<weapons.Length;++i)
+        {
+            BasicGun weapon = weapons[i];
+            if (weapon == null) continue;
+            if (weapon.name == "main_weapon" )
+                 _weapon = weapon;
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    public virtual void Update () {
         if (_aggro)
             Shoot();
         else
