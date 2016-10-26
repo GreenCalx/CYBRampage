@@ -12,7 +12,7 @@ public class AITurretDetectAndShoot : MonoBehaviour {
     public DETECTION_STYLE detectionStyle;
 
     private Transform _playerTransformRef;
-    private bool _aggro;
+    protected bool _aggro;
 
     private BasicGun _weapon;
 

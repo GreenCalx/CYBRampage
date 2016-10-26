@@ -8,7 +8,8 @@ public class AIBasicEye : AITurretDetectAndShoot {
     private BasicGun _bpWeapon;
 
 	// Use this for initialization
-	public override void Start () {
+	public override void Start ()
+    {
 
         base.Start();
 
@@ -23,12 +24,16 @@ public class AIBasicEye : AITurretDetectAndShoot {
     }
 	
 	// Update is called once per frame
-	public override void Update () {
-
-        float bp_chance = Random.Range(0, 100);
-        bigger_projectile = (bp_chance < bigger_projectile_perc_chance);
-        if (bigger_projectile)
-            _bpWeapon.Fire(true);
+	public override void Update ()
+    {
         base.Update();
-	}
+
+        if (_aggro)
+        {
+            float bp_chance = Random.Range(0, 100);
+            bigger_projectile = (bp_chance < bigger_projectile_perc_chance);
+            if (bigger_projectile)
+                _bpWeapon.Fire(true);
+        }
+    }
 }
