@@ -8,7 +8,10 @@ public class PlayerArmController : MonoBehaviour {
     private Vector2 _stickPoint;
     private Vector2 _directionVector;
 
+    public bool isOppositeArm;
+
     private float _xAngle = 0f, _yAngle = 0f, _zAngle = 0f ;
+    public float xAngleOffset = 0f, yAngleOffset = 0f, zAngleOffset = 0f;
 
     private bool _flip = false;
     private bool _flipped = false;
@@ -70,9 +73,15 @@ public class PlayerArmController : MonoBehaviour {
         // Rotate 180 around x-axis if the _angle is above or below 90
         //  _yAngle = ((_zAngle > 90) || (_zAngle < -90)) ? 180f : 0f;
 
+        // Apply offset
+        _zAngle += zAngleOffset;
+        _xAngle += xAngleOffset;
+        _yAngle += yAngleOffset;
 
         // Sync the rotation
         _zAngle *= Time.timeScale;
+
+        isOppositeArm = _invert;
 
         transform.rotation = Quaternion.Euler(new Vector3(_xAngle, _yAngle, _zAngle)) ;
         
@@ -87,6 +96,12 @@ public class PlayerArmController : MonoBehaviour {
             gunpoint.forward = gunpointPosition - armPosition ;
         }
 
+
+        // Offset RàZ
+        // Apply offset
+        zAngleOffset = 0f;
+        xAngleOffset = 0f;
+        yAngleOffset = 0f;
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
