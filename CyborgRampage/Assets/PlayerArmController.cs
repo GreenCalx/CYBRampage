@@ -82,6 +82,12 @@ public class PlayerArmController : MonoBehaviour {
         _zAngle *= Time.timeScale;
 
         isOppositeArm = _invert;
+        //Transform armTransform = GetComponent<Transform>();
+        //if (_invert)
+        //    armTransform.position += new Vector3(0, 0,-1f);
+        //else
+        //    armTransform.position += new Vector3(0,0,1f);
+
 
         transform.rotation = Quaternion.Euler(new Vector3(_xAngle, _yAngle, _zAngle)) ;
         

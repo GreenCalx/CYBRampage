@@ -82,9 +82,13 @@ public class PlayerController : MonoBehaviour {
         {
             BasicGun[] guns = GetComponentsInChildren<BasicGun>();
             if (guns[0] != null)
+            {
                 guns[0].Fire(false);
+            }
             if (guns[1] != null)
+            { 
                 guns[1].Fire(false);
+            }
         }
 
         // Conditions upon eventual transformations
@@ -193,6 +197,7 @@ public class PlayerController : MonoBehaviour {
             if (bullet.IsEnemyProjectile) // FriendlyFire OFF
             {
                 Vector2 repulsionVector = new Vector2(0f, 0f);
+                _rb2d.velocity -= bullet._rb2d.velocity ;
                 damage(bullet.damage, repulsionVector);
                 Destroy(bullet.gameObject);
             }

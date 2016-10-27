@@ -7,7 +7,7 @@ public class MissileController : MonoBehaviour {
     public float damage_range_low = 1f;
     public float damage_range_max = 5f;
     public float lifeTime = 5f;
-    private Rigidbody2D _rb2d;
+    public Rigidbody2D _rb2d;
 
     public bool IsEnemyProjectile = false;
 
