@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 public class DiagHobo : MonoBehaviour {
 
-    public int DialogFlag;
-    public int ProximityFlag; 
+    public int DialogFlag = 0 ;
+    private int ProximityFlag;
+    
+
     void OnTriggerEnter2D(Collider2D c)
     {
         if (c.gameObject.name.Equals("PLAYER"))
@@ -38,12 +40,14 @@ public class DiagHobo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        DialogFlag = 0;
         if (Input.GetKey(KeyCode.E))
         {
             if (ProximityFlag == 1)
             {
                 // we can now speak to the madafaka
-                DialogFlag += 1;
+                DialogFlag = 1;
+              
             }
         }
     }
