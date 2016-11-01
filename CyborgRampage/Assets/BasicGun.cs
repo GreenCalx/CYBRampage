@@ -7,6 +7,9 @@ public class BasicGun : MonoBehaviour {
     public Transform bulletTransformRef;
     public float fireRate ;
     public float fireStrength;
+    public string name = "";
+
+    public Vector2 parentSpeed;
 
     private float fireCooldown;    // internal cd
     private Vector3 _shootingDirection;
@@ -65,7 +68,7 @@ public class BasicGun : MonoBehaviour {
             Vector3 dir = gunpoint.forward;
             if (bulletRB2D)
             {
-                move.direction = dir;
+                move.direction = dir * fireStrength;
                 _shootingDirection = dir; // ?
             }
             else
@@ -76,6 +79,9 @@ public class BasicGun : MonoBehaviour {
             }
 
         }
+
+        // Add parent velocity
+        move.direction += parentSpeed;
 
     }
 

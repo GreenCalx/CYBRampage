@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
@@ -11,10 +11,14 @@ public class PlayerController : MonoBehaviour {
     private bool        _fFlip = false;
     private Rigidbody2D _rb2d;
     private Animator    _animator;
+    private Animator    _HUDAnimator;
     private PlayerArmController _arm;
+
+    private bool _desyncArms = false;
 
     // -- MISSILE -- 
     public KeyCode FIRE;
+    public KeyCode SECONDARY_FIRE;
     public GameObject missile;
 
     // -- Various datas --
@@ -49,18 +53,42 @@ public class PlayerController : MonoBehaviour {
         _rb2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _arm = GetComponentInChildren<PlayerArmController>();
+
+        // Get HUD
+        GameObject hud = GameObject.Find("HUD");
+        _HUDAnimator = hud.GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
 	void Update () {
 
+        _desyncArms = (Input.GetKey(FIRE) && Input.GetKey(SECONDARY_FIRE));
+        if (_desyncArms)
+        {
+            PlayerArmController[] l = GetComponentsInChildren<PlayerArmController>();
+            for (int i_arm = 0; i_arm < l.Length; ++i_arm)
+            {
+                PlayerArmController currentArm = l[i_arm];
+                if (currentArm == null)
+                    continue;
+                if (currentArm.isOppositeArm)
+                    currentArm.zAngleOffset = 180f;
+            }
+
+        }
+            
+
         if (Input.GetKey(FIRE))
         {
             BasicGun[] guns = GetComponentsInChildren<BasicGun>();
             if (guns[0] != null)
+            {
                 guns[0].Fire(false);
+            }
             if (guns[1] != null)
+            { 
                 guns[1].Fire(false);
+            }
         }
 
         // Conditions upon eventual transformations
@@ -145,6 +173,10 @@ public class PlayerController : MonoBehaviour {
         _isInvincible = true;
         _invulnerabilityCounter = 0;
 
+        // Animate HUD
+        if (_HUDAnimator)
+            _HUDAnimator.SetBool("Hurt", true);
+
         // Final Resolution
         if (health <= 0)
             Kill();
@@ -165,6 +197,7 @@ public class PlayerController : MonoBehaviour {
             if (bullet.IsEnemyProjectile) // FriendlyFire OFF
             {
                 Vector2 repulsionVector = new Vector2(0f, 0f);
+                _rb2d.velocity -= bullet._rb2d.velocity ;
                 damage(bullet.damage, repulsionVector);
                 Destroy(bullet.gameObject);
             }
