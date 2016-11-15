@@ -18,6 +18,8 @@ public class NpcDialogBoxText : MonoBehaviour {
     public string _text;
     public string _inputText;
 
+    
+
     //public int scrollingStep = 5;
     //public Vector2 scrollingVector;
     private int i_scroll = 0;
@@ -80,9 +82,9 @@ public class NpcDialogBoxText : MonoBehaviour {
 
         _RectPosition.y -= spriteHeight * 1.5f;
 
-       // _RectPosition.y -= (scrollingVector.y * scrollingStep) * i_scroll++;
-       // _RectPosition.x += (scrollingVector.x * scrollingStep) * i_scroll++;
-    
+        // _RectPosition.y -= (scrollingVector.y * scrollingStep) * i_scroll++;
+        // _RectPosition.x += (scrollingVector.x * scrollingStep) * i_scroll++;
+
         
     }
 
@@ -116,6 +118,15 @@ public class NpcDialogBoxText : MonoBehaviour {
             GUI.Label(new Rect(_RectPosition, _RectSize), _text);
 
         }
+
+    }
+    public Vector2 GetPosition()
+    {
+        Vector2 a;
+        a.x = _RectPosition.x;
+        a.y = _RectPosition.y;
+
+        return a;
 
     }
 

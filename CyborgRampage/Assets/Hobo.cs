@@ -13,6 +13,8 @@ public class Hobo : MonoBehaviour
     public bool ok;
     protected Vector3 _transformPosition;
 
+    public Transform b;
+
     // Use this for initialization
     void Start()
     {
@@ -31,6 +33,12 @@ public class Hobo : MonoBehaviour
             Vector2 textPosition = Camera.main.WorldToScreenPoint(_transformPosition);
             _Text.LastSeenPosition(textPosition);
             _Text.Update();
+            
+            b.position.Set(_Text.GetPosition().x, _Text.GetPosition().y, 0);
+            b.localPosition.Set(_Text.GetPosition().x, _Text.GetPosition().y, 0);
+           
+
+
         }
 
 
