@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
+    // Suit VAR
+    private bool PUT_SUIT = false;
+
     // 0 : no knockback |  1 : full knockback
     public const float REPULSION_ATTENUATION = 1.0f;
 
@@ -61,6 +64,24 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Update player suit if exists
+        if ( PUT_SUIT )
+        {
+            _animator.SetBool("SUIT_ON?", PUT_SUIT);
+
+            _animator.SetBool("ROTATELEFT", false);
+            _animator.SetBool("ROTATERIGHT", false);
+
+            bool turnLeft = (Input.GetKey(KeyCode.A));
+            bool turnRight = (Input.GetKey(KeyCode.E));
+
+            if ( turnLeft && !turnRight )
+                _animator.SetBool("ROTATELEFT", true);
+            else if ( !turnLeft && turnRight )
+                _animator.SetBool("ROTATERIGHT", true);
+
+        }
 
         _desyncArms = (Input.GetKey(FIRE) && Input.GetKey(SECONDARY_FIRE));
         if (_desyncArms)
